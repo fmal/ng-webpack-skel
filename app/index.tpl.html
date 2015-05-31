@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>ng-webpack-skeleton</title>
+    {% if (o.htmlWebpackPlugin.options.isProduction) { %}
+        <link rel="stylesheet" href="app.{%=o.webpack.hash%}.bundle.css">
+    {% } else { %}
+        <link rel="stylesheet" href="app.bundle.css">
+    {% } %}
+</head>
+<body ng-strict-di ng-app="app">
+    <div ng-controller="DummyStateController">
+        <h1>{{ ::predefinedValue }}</h1>
+    </div>
+    <script src="{%=o.htmlWebpackPlugin.assets.app%}"></script>
+</body>
+</html>

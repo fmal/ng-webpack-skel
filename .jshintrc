@@ -1,0 +1,15 @@
+{
+    "esnext": false,
+    "node": true,
+    "browser": true,
+    "globals": {
+        "angular": true,
+
+        "inject": true,
+        "describe": true,
+        "it": true,
+        "expect": true,
+        "beforeEach": true,
+        "afterEach": true
+    }
+}

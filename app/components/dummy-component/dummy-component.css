@@ -1,0 +1,10 @@
+﻿/** @define dummyComponent */
+
+.dummyComponent {
+    color: red;
+    background: url(images/icon.png) no-repeat;
+}
+
+.dummyComponent--modifier {}
+
+    .dummyComponent-child {}
