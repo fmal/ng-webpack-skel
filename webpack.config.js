@@ -11,7 +11,10 @@ var path = require('path'),
 
 var WEBPACK_CONTEXT = process.env.WEBPACK_CONTEXT || 'dev',
     IS_PRODUCTION = (WEBPACK_CONTEXT === 'prod'),
-    ROOT_PATH = path.resolve(__dirname);
+    ROOT_PATH = path.resolve(__dirname),
+    GLOBALS = {
+        'process.env.NODE_ENV': JSON.stringify(IS_PRODUCTION ? 'production' : 'development')
+    };
 
 module.exports = {
     debug: !IS_PRODUCTION,
@@ -65,10 +68,10 @@ module.exports = {
         autoprefixer(),
         bemLinter()
     ],
-    plugins: IS_PRODUCTION ? [
-        new webpack.DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('production')
-        }),
+    plugins: [
+        new webpack.optimize.OccurenceOrderPlugin(),
+        new webpack.DefinePlugin(GLOBALS)
+    ].concat(IS_PRODUCTION ? [
         new webpack.optimize.DedupePlugin(),
         new ExtractTextPlugin('[name].[hash].bundle.css', {
             allChunks: true
@@ -79,7 +82,6 @@ module.exports = {
                 warnings: false
             }
         }),
-        new webpack.optimize.OccurenceOrderPlugin(),
         new HtmlWebpackPlugin({
             template: path.join(ROOT_PATH, 'app/index.tpl.html'),
             isProduction: true
@@ -91,7 +93,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             template: path.join(ROOT_PATH, 'app/index.tpl.html')
         })
-    ],
+    ]),
     jshint: {
         failOnHint: false
     }
